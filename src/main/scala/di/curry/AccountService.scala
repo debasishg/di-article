@@ -5,7 +5,7 @@ import java.util.Date
 import util.{ Try, Success, Failure }
 import common._
 
-trait AccountService[Account, Amount, Balance] {
+trait AccountService {
   def open(no: String, name: String, openingDate: Option[Date]): AccountRepository => Try[Account]
   def close(no: String, closeDate: Option[Date]): AccountRepository => Try[Account]
   def debit(no: String, amount: Amount): AccountRepository => Try[Account]
@@ -13,7 +13,7 @@ trait AccountService[Account, Amount, Balance] {
   def balance(no: String): AccountRepository => Try[Balance]
 }
 
-object AccountService extends AccountService[Account, Amount, Balance] {
+object AccountService extends AccountService {
 
   def open(no: String, name: String, openingDate: Option[Date]) = (repo: AccountRepository) =>
     repo.query(no) match {
